@@ -1,0 +1,15 @@
+<Project>
+  <UsingTask 
+    TaskName="EfMigrationCreate" 
+    AssemblyFile="$(HOME)/.nuget/packages/microsoft.entityframeworkcore.tools/8.0.7/tools/netcoreapp3.1/any/ef.dll" />
+
+  <Target Name="GenerateEFCoreMigration">
+    <Message Text="Generating EF Core Migration: $(MigrationName)" Importance="high" />
+    <Exec Command="dotnet exec $(HOME)/.nuget/packages/microsoft.entityframeworkcore.tools/8.0.7/tools/netcoreapp3.1/any/ef.dll migrations add $(MigrationName) --project $(MSBuildProjectFullPath)" />
+  </Target>
+
+  <Target Name="ApplyEFCoreMigration">
+    <Message Text="Applying EF Core Migrations..." Importance="high" />
+    <Exec Command="dotnet exec $(HOME)/.nuget/packages/microsoft.entityframeworkcore.tools/8.0.7/tools/netcoreapp3.1/any/ef.dll database update --project $(MSBuildProjectFullPath)" />
+  </Target>
+</Project>
